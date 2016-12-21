@@ -1,5 +1,6 @@
-////// global array of items in inventory //////
-var items = [];
+// properties by which searches can be done
+var COLORS = [ 'red', 'orange', 'yellow', 'green', 'mermaid treasure', 'blue', 'purple' ];
+var SIZES = [ 'small', 'medium', 'large' ];
 
 $( document ).ready( function(){
   init();
@@ -7,20 +8,15 @@ $( document ).ready( function(){
 
 var init = function() {
   console.log('in init');
-  // properties by which searches can be done
-  var colors = [ 'red', 'orange', 'yellow', 'green', 'mermaid treasure', 'blue', 'purple' ];
-  var sizes = [ 'small', 'medium', 'large' ];
   //display size & color options when doc is ready
-  generateSelectOptions(colors, $('#colorIn'), $('#findColorIn'));
-  generateSelectOptions(sizes, $('#sizeIn'), $('#findSizeIn'));
-  // get objects when doc is ready
-  getObjects();
+  generateSelectOptions(COLORS, $('#colorIn'), $('#findColorIn'));
+  generateSelectOptions(SIZES, $('#sizeIn'), $('#findSizeIn'));
   //event Listeners
   $('#addItemForm').on('submit', function() {
-    addObject(event);
+    addItem(event);
   }); // end #addItemForm submit
   $('#findItemForm').on('submit', function() {
-    findObject(event);
+    getItems(event);
   }); // end #findItemForm submit
 }; // end init
 
@@ -29,10 +25,10 @@ var clearForm = function(formId) {
   $("#" + formId + " input, #" + formId + " select").val('');
 }; // end clearForm
 
-var addObject = function(e){
-  console.log( 'in addObject' );
+var addItem = function(e){
+  console.log( 'in addItem' );
   e.preventDefault();
-  // assemble object from input fields
+  // assemble newItem from input fields
   var newItem = {
     color: $('#colorIn').val(),
     name: $('#nameIn').val(),
@@ -51,36 +47,32 @@ var addObject = function(e){
       console.log(err);
     } // end error
   }); // end ajax
-  //add to items array
-  items.push( newItem );
-}; // end addObject
+}; // end addItem
 
-var findObject = function(e){
-  console.log( 'in findObject');
-  //prevent form submission
-  e.preventDefault();
+var findItem = function(array){
+  console.log( 'in findItem');
   //get values from selects
   var colorCheck = $('#findColorIn').val();
   var sizeCheck = $('#findSizeIn').val();
   // array of matches
   var matches = [];
-  //TODO: separate or rename this function???
-  for ( var i = 0; i < items.length; i++ ) {
-    console.log('item color:', items[i].color);
-    if( items[i].color == colorCheck && items[i].size == sizeCheck ){
+  for ( var i = 0; i < array.length; i++ ) {
+    if( array[i].color == colorCheck && array[i].size == sizeCheck ){
       // match, add to array
-      matches.push( items[i] );
+      matches.push( array[i] );
     } // end if
   } // end for
   console.log( 'matches:', matches );
   clearForm('findItemForm');
   displayMatches(matches);
-}; // end findObject
+}; // end findItem
 
 var displayMatches = function(array) {
   console.log('in displayMatches', array);
+  //clear output div
+  $('#outputDiv').html('');
+  //If no matches, tell user. Else, display matches
   if (array.length < 1) {
-    console.log('no matches found');
     $('#outputDiv').append('<p>There are no matches for this search</p>');
   } else {
     $('#outputDiv').append('<h3>Matching Items Found:</h3>');
@@ -104,20 +96,21 @@ var generateSelectOptions = function(array, element1, element2) {
   } // end for
 }; // end generateSelectOptions
 
-var getObjects = function(){
-  console.log( 'in getObjects');
+var getItems = function(e){
+  console.log('in getItems');
+  //prevent form submission
+  e.preventDefault();
+  console.log( 'in getItems');
   $.ajax({
     type: 'GET',
     url: '/inventory',
     success: function(response) {
       console.log('GET ajax success', response);
-      //Push each item into items array
-      for (var i = 0; i < response.items.length; i++) {
-        items.push(response.items[i]);
-      } // end for
+      var items = response.items;
+      findItem(items);
     }, // end success
     error: function(err) {
       console.log(err);
     } // end error
   }); // end ajax
-}; // end getObjects
+}; // end getItems

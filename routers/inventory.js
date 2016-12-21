@@ -9,7 +9,7 @@ var urlEncodedParser = bodyParser.urlencoded( { extended: false } );
 //connect to database
 var connString = require( '../modules/connection' );
 
-// add new objects to the inventory
+// add new items to the inventory
 router.post( '/', urlEncodedParser, function( req, res ){
   console.log( 'addItem route hit:', req.body );
   pg.connect(connString, function(err, client ,done) {
@@ -27,7 +27,7 @@ router.post( '/', urlEncodedParser, function( req, res ){
   }); // end pg connect
 }); // end addItem route
 
-// get all objects in the inventory
+// get all items in the inventory
 router.get( '/', function( req, res ){
   var items = [];
   // get all items in the table and return them to client

@@ -8,7 +8,7 @@ Think about this in stages: Using the existing project as a POC you'll want to c
 
 * [x] Step 1 - Complete the basic functionality using JQuery
 
-* [ ] Step 2 - Use a server side array to store the inventory
+* [x] Step 2 - Use a server side array to store the inventory
 
 * [x] Step 3 - Add an SQL db for persistent inventory data
 
