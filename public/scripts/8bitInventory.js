@@ -36,7 +36,7 @@ var addObject = function( colorIn, nameIn, sizeIn ){
   ////// TODO: add ajax call (POST) to addItem route to add this item to the table
   $.ajax({
     type: 'POST',
-    url: '/addItem',
+    url: '/inventory',
     data: newItem,
     success: function(response) {
       console.log('ajax POST success', response);
@@ -67,7 +67,7 @@ var getObjects = function(){
   console.log( 'in getObjects');
   $.ajax({
     type: 'GET',
-    url: '/getInventory',
+    url: '/inventory',
     success: function(response) {
       console.log('GET ajax success', response);
     }, // end success
