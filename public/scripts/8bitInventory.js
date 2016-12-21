@@ -1,7 +1,3 @@
-// properties by which searches can be done
-var sizes = [ 'small', 'medium', 'large' ];
-var colors = [ 'red', 'orange', 'yellow', 'green', 'mermaid treasure', 'blue', 'purple' ];
-
 ////// global array of items in inventory //////
 var items = [];
 
@@ -11,29 +7,34 @@ $( document ).ready( function(){
 
 var init = function() {
   console.log('in init');
+  // properties by which searches can be done
+  var colors = [ 'red', 'orange', 'yellow', 'green', 'mermaid treasure', 'blue', 'purple' ];
+  var sizes = [ 'small', 'medium', 'large' ];
+  //display size & color options when doc is ready
+  generateSelectOptions(colors, $('#colorIn'), $('#findColorIn'));
+  generateSelectOptions(sizes, $('#sizeIn'), $('#findSizeIn'));
   // get objects when doc is ready
   getObjects();
+  //event Listeners
+  $('#addItemForm').on('submit', function() {
+    addObject(event);
+  }); // end #findItemForm submit
+
   // the below are tests to show what is returned when running findObject
-  addObject( 'blue', 'blueberry', 'small' );
   findObject( 'blue', 'small' );
   findObject( 'blue', 'large' );
 }; // end init
 
-var addObject = function( colorIn, nameIn, sizeIn ){
+var addObject = function(e){
   console.log( 'in addObject' );
-  // assemble object from new fields
-  // var newItem = {
-  //   color: colorIn,
-  //   name: nameIn,
-  //   size: sizeIn
-  // }; // end testObject
+  e.preventDefault();
+  // assemble object from input fields
   var newItem = {
-    color: "pink",
-    name: "jelly bean",
-    size: "small"
-  }; // end testObject
+    color: $('#colorIn').val(),
+    name: $('#nameIn').val(),
+    size: $('#sizeIn').val()
+  }; // end newItem
   console.log( 'adding:', newItem );
-  ////// TODO: add ajax call (POST) to addItem route to add this item to the table
   $.ajax({
     type: 'POST',
     url: '/inventory',
@@ -45,7 +46,7 @@ var addObject = function( colorIn, nameIn, sizeIn ){
       console.log(err);
     } // end error
   }); // end ajax
-  // add to items array
+  //add to items array
   items.push( newItem );
 }; // end addObject
 
@@ -62,6 +63,16 @@ var findObject = function( colorCheck, sizeCheck ){
   console.log( 'matches:', matches );
   ////// TODO: display matches
 }; // end findObject
+
+var generateSelectOptions = function(array, element1, element2) {
+  console.log('in generateSelectOptions');
+  var $el1 = element1;
+  var $el2 = element2;
+  for (var i = 0; i < array.length; i++) {
+    $el1.append('<option value="'+ array[i] +'">' + array[i] + '</option>');
+    $el2.append('<option value="'+ array[i] +'">' + array[i] + '</option>');
+  } // end for
+}; // end generateSelectOptions
 
 var getObjects = function(){
   console.log( 'in getObjects');
