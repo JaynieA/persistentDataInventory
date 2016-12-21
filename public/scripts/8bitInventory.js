@@ -18,12 +18,16 @@ var init = function() {
   //event Listeners
   $('#addItemForm').on('submit', function() {
     addObject(event);
+  }); // end #addItemForm submit
+  $('#findItemForm').on('submit', function() {
+    findObject(event);
   }); // end #findItemForm submit
-
-  // the below are tests to show what is returned when running findObject
-  findObject( 'blue', 'small' );
-  findObject( 'blue', 'large' );
 }; // end init
+
+var clearForm = function(formId) {
+  console.log('in clearForm');
+  $("#" + formId + " input, #" + formId + " select").val('');
+}; // end clearForm
 
 var addObject = function(e){
   console.log( 'in addObject' );
@@ -41,6 +45,7 @@ var addObject = function(e){
     data: newItem,
     success: function(response) {
       console.log('ajax POST success', response);
+      clearForm('addItemForm');
     }, // end success
     error: function(err) {
       console.log(err);
@@ -50,19 +55,44 @@ var addObject = function(e){
   items.push( newItem );
 }; // end addObject
 
-var findObject = function( colorCheck, sizeCheck ){
-  console.log( 'in findObject. Looking for:', colorCheck, sizeCheck );
+var findObject = function(e){
+  console.log( 'in findObject');
+  //prevent form submission
+  e.preventDefault();
+  //get values from selects
+  var colorCheck = $('#findColorIn').val();
+  var sizeCheck = $('#findSizeIn').val();
   // array of matches
   var matches = [];
+  //TODO: separate or rename this function???
   for ( var i = 0; i < items.length; i++ ) {
+    console.log('item color:', items[i].color);
     if( items[i].color == colorCheck && items[i].size == sizeCheck ){
       // match, add to array
       matches.push( items[i] );
     } // end if
   } // end for
   console.log( 'matches:', matches );
-  ////// TODO: display matches
+  clearForm('findItemForm');
+  displayMatches(matches);
 }; // end findObject
+
+var displayMatches = function(array) {
+  console.log('in displayMatches', array);
+  if (array.length < 1) {
+    console.log('no matches found');
+    $('#outputDiv').append('<p>There are no matches for this search</p>');
+  } else {
+    $('#outputDiv').append('<h3>Matching Items Found:</h3>');
+    for (var i = 0; i < array.length; i++) {
+      $('#outputDiv').append('<div class="itemFound"></p>');
+      var $el = $('#outputDiv').children().last();
+      $el.append('<p>' + array[i].name + '</p>');
+      $el.append('<p>' + array[i].color + '</p>');
+      $el.append('<p>' + array[i].size + '</p>');
+    } // end for
+  } // end else
+};// end displayMatches
 
 var generateSelectOptions = function(array, element1, element2) {
   console.log('in generateSelectOptions');
@@ -81,6 +111,10 @@ var getObjects = function(){
     url: '/inventory',
     success: function(response) {
       console.log('GET ajax success', response);
+      //Push each item into items array
+      for (var i = 0; i < response.items.length; i++) {
+        items.push(response.items[i]);
+      } // end for
     }, // end success
     error: function(err) {
       console.log(err);

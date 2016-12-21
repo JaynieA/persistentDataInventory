@@ -13,7 +13,7 @@
     <script src="scripts/8bitInventory.js" charset="utf-8"></script>
   </head>
   <body>
-    <div class="container">
+    <div class="container text-center">
       <h1>8-Bit Inventory Launchpad</h1>
 
       <h2>Add Item to Inventory</h2>
@@ -39,7 +39,6 @@
 
       <h2>Find Item</h2>
       <form id="findItemForm" class="form-inline">
-
         <div class="form-group">
           <label for="findSizeIn">Size:</label>
           <select id="findSizeIn" class="form-control" required>
@@ -53,12 +52,10 @@
           </select>
         </div>
         <button type="submit" class="btn btn-primary">Find Item</button>
-
       </form>
 
-      <div class="outputDiv">
+      <div id="outputDiv"></div>
 
-      </div>
     </div>
   </body>
 </html>
