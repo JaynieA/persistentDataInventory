@@ -24,12 +24,13 @@ form {
   margin: 20px auto;
 }
 .bordered {
-  border: 2px solid $darkBorderColor;
+  border: 2px solid $borderColor;
   border-radius: 4px;
-}
-.bordered-light {
-  border-color: $lightBorderColor;
 }
 .item-found {
   padding: 10px;
+}
+.search-result {
+  font-size: 18px;
+  color: $accentBlue;
 }

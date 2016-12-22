@@ -79,16 +79,14 @@ var displayMatches = function(array, colorSearched, sizeSearched) {
   } else {
     $('#outputDiv').append('<h3>Search Results:</h3>');
     $('#outputDiv').append('<hr>');
-    $('#outputDiv').append('<h4>Searched: ' + sizeSearched + ', ' + colorSearched + '</h4>');
+    $('#outputDiv').append('<h4>Search Criteria: ' + sizeSearched + ', ' + colorSearched + '</h4>');
     for (var i = 0; i < array.length; i++) {
-      $('#outputDiv').append('<div class="col-sm-4"></p>');
-      var $wrapper = $('#outputDiv').children().last();
-      $wrapper.append('<div class="item-found bordered"></div>').hide().fadeIn('fast');
-      var $el = $wrapper.children().last();
-      $el.append('<p>Item: ' + array[i].name + '</p>');
-      $el.append('<p>Quantity: ' + array[i].quantity + '</p>');
-      $el.append('<p>Size: ' + array[i].size + '</p>');
-      $el.append('<p>Color: ' + array[i].color + '</p>');
+      //If quantity is greater than 1, make item plural by adding an 's'
+      if (array[i].quantity > 1) {
+        $('#outputDiv').append('<p class="search-result">' + array[i].quantity + ' ' + array[i].name + 's</p>');
+      } else {
+        $('#outputDiv').append('<p class="search-result">' + array[i].quantity + ' ' + array[i].name + '</p>');
+      } // end else
     } // end for
   } // end else
 };// end displayMatches

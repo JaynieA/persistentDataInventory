@@ -19,13 +19,14 @@ form {
   margin: 20px auto; }
 
 .bordered {
-  border: 2px solid #515150;
+  border: 2px solid #eee;
   border-radius: 4px; }
-
-.bordered-light {
-  border-color: #eee; }
 
 .item-found {
   padding: 10px; }
+
+.search-result {
+  font-size: 18px;
+  color: #337ab7; }
 
 /*# sourceMappingURL=master.css.map */
