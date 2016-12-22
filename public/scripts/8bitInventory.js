@@ -25,6 +25,7 @@ var clearForm = function(formId) {
   $("#" + formId + " input, #" + formId + " select").val('');
 }; // end clearForm
 
+//TODO: rename to createNewItemObject, pull ajax into it's own function named addItem
 var addItem = function(e){
   console.log( 'in addItem' );
   e.preventDefault();
@@ -33,7 +34,7 @@ var addItem = function(e){
     color: $('#colorIn').val(),
     name: $('#nameIn').val(),
     size: $('#sizeIn').val(),
-    quantity: $('#quantityIn').val()
+    quantity: Number($('#quantityIn').val())
   }; // end newItem
   console.log( 'adding:', newItem );
   $.ajax({
@@ -76,12 +77,13 @@ var displayMatches = function(array, colorSearched, sizeSearched) {
   if (array.length < 1) {
     $('#outputDiv').append('<p>There are no matches for this search</p>');
   } else {
+    $('#outputDiv').append('<h3>Search Results:</h3>');
+    $('#outputDiv').append('<hr>');
     $('#outputDiv').append('<h4>Searched: ' + sizeSearched + ', ' + colorSearched + '</h4>');
-    $('#outputDiv').append('<h3>Matching Items Found:</h3>');
     for (var i = 0; i < array.length; i++) {
       $('#outputDiv').append('<div class="col-sm-4"></p>');
       var $wrapper = $('#outputDiv').children().last();
-      $wrapper.append('<div class="item-found bordered"></div>');
+      $wrapper.append('<div class="item-found bordered"></div>').hide().fadeIn('fast');
       var $el = $wrapper.children().last();
       $el.append('<p>Item: ' + array[i].name + '</p>');
       $el.append('<p>Quantity: ' + array[i].quantity + '</p>');

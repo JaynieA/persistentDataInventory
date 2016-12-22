@@ -32,4 +32,6 @@ Think about this in stages: Using the existing project as a POC you'll want to c
 
 * [ ] Add Server Side Validation
 
-* [ ] Add Quantity to database and client side logic
+* [x] Add Quantity column to items table
+
+  * [x] Add logic to update the quantity (by adding the quantity entered to the existing quantity) of an added item if the name, color, and size fields are the same as an existing item rather than inserting a new record.
