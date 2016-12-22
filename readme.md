@@ -28,7 +28,7 @@ Think about this in stages: Using the existing project as a POC you'll want to c
 
 * [x] Add styling
 
-* [ ] Host app on Heroku
+* [x] Host app on Heroku
 
 * [ ] Add Server Side Validation
 
