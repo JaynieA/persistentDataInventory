@@ -1,3 +1,4 @@
+var logs = false;
 // properties by which searches can be done
 var COLORS = [ 'red', 'orange', 'yellow', 'green', 'mermaid treasure', 'blue', 'purple' ];
 var SIZES = [ 'small', 'medium', 'large' ];
@@ -7,7 +8,7 @@ $( document ).ready( function(){
 }); // end doc ready
 
 var init = function() {
-  console.log('in init');
+  if (logs) console.log('in init');
   //display size & color options when doc is ready
   generateSelectOptions(COLORS, $('#colorIn'), $('#findColorIn'));
   generateSelectOptions(SIZES, $('#sizeIn'), $('#findSizeIn'));
@@ -21,13 +22,12 @@ var init = function() {
 }; // end init
 
 var clearForm = function(formId) {
-  console.log('in clearForm');
+  if (logs) console.log('in clearForm');
   $("#" + formId + " input, #" + formId + " select").val('');
 }; // end clearForm
 
-//TODO: rename to createNewItemObject, pull ajax into it's own function named addItem
 var addItem = function(e){
-  console.log( 'in addItem' );
+  if (logs) console.log( 'in addItem' );
   e.preventDefault();
   // assemble newItem from input fields
   var newItem = {
@@ -36,23 +36,22 @@ var addItem = function(e){
     size: $('#sizeIn').val(),
     quantity: Number($('#quantityIn').val())
   }; // end newItem
-  console.log( 'adding:', newItem );
   $.ajax({
     type: 'POST',
     url: '/inventory',
     data: newItem,
     success: function(response) {
-      console.log('ajax POST success', response);
+      if (logs) console.log('ajax POST success', response);
       clearForm('addItemForm');
     }, // end success
     error: function(err) {
-      console.log(err);
+      if (logs) console.log(err);
     } // end error
   }); // end ajax
 }; // end addItem
 
 var findItem = function(array){
-  console.log( 'in findItem');
+  if (logs) console.log('in findItem');
   //get values from selects
   var colorCheck = $('#findColorIn').val();
   var sizeCheck = $('#findSizeIn').val();
@@ -64,13 +63,12 @@ var findItem = function(array){
       matches.push( array[i] );
     } // end if
   } // end for
-  console.log( 'matches:', matches );
   clearForm('findItemForm');
   displayMatches(matches, colorCheck, sizeCheck);
 }; // end findItem
 
 var displayMatches = function(array, colorSearched, sizeSearched) {
-  console.log('in displayMatches', array);
+  if (logs) console.log('in displayMatches', array);
   //clear output div
   $('#outputDiv').html('');
   //If no matches, tell user. Else, display matches
@@ -92,7 +90,7 @@ var displayMatches = function(array, colorSearched, sizeSearched) {
 };// end displayMatches
 
 var generateSelectOptions = function(array, element1, element2) {
-  console.log('in generateSelectOptions');
+  if (logs) console.log('in generateSelectOptions');
   var $el1 = element1;
   var $el2 = element2;
   for (var i = 0; i < array.length; i++) {
@@ -102,20 +100,20 @@ var generateSelectOptions = function(array, element1, element2) {
 }; // end generateSelectOptions
 
 var getItems = function(e){
-  console.log('in getItems');
+  if (logs) console.log('in getItems');
   //prevent form submission
   e.preventDefault();
-  console.log( 'in getItems');
+  if (logs) console.log( 'in getItems');
   $.ajax({
     type: 'GET',
     url: '/inventory',
     success: function(response) {
-      console.log('GET ajax success', response);
+      if (logs) console.log('GET ajax success', response);
       var items = response.items;
       findItem(items);
     }, // end success
     error: function(err) {
-      console.log(err);
+      if (logs) console.log(err);
     } // end error
   }); // end ajax
 }; // end getItems
