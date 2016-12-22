@@ -17,7 +17,7 @@ router.post( '/', urlEncodedParser, function( req, res ){
       //if there was an error, log it
       console.log(err);
     } else {
-      var query = client.query('INSERT INTO items (name, color, size) VALUES ($1, $2, $3)', [req.body.name, req.body.color, req.body.size]);
+      var query = client.query('INSERT INTO items (name, color, size, quantity) VALUES ($1, $2, $3, $4)', [req.body.name, req.body.color, req.body.size, req.body.quantity]);
       query.on('end', function() {
         //disconnect from database
         done();

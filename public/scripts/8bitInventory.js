@@ -32,7 +32,8 @@ var addItem = function(e){
   var newItem = {
     color: $('#colorIn').val(),
     name: $('#nameIn').val(),
-    size: $('#sizeIn').val()
+    size: $('#sizeIn').val(),
+    quantity: $('#quantityIn').val()
   }; // end newItem
   console.log( 'adding:', newItem );
   $.ajax({
@@ -64,10 +65,10 @@ var findItem = function(array){
   } // end for
   console.log( 'matches:', matches );
   clearForm('findItemForm');
-  displayMatches(matches);
+  displayMatches(matches, colorCheck, sizeCheck);
 }; // end findItem
 
-var displayMatches = function(array) {
+var displayMatches = function(array, colorSearched, sizeSearched) {
   console.log('in displayMatches', array);
   //clear output div
   $('#outputDiv').html('');
@@ -75,13 +76,17 @@ var displayMatches = function(array) {
   if (array.length < 1) {
     $('#outputDiv').append('<p>There are no matches for this search</p>');
   } else {
+    $('#outputDiv').append('<h4>Searched: ' + sizeSearched + ', ' + colorSearched + '</h4>');
     $('#outputDiv').append('<h3>Matching Items Found:</h3>');
     for (var i = 0; i < array.length; i++) {
-      $('#outputDiv').append('<div class="itemFound"></p>');
-      var $el = $('#outputDiv').children().last();
-      $el.append('<p>' + array[i].name + '</p>');
-      $el.append('<p>' + array[i].color + '</p>');
-      $el.append('<p>' + array[i].size + '</p>');
+      $('#outputDiv').append('<div class="col-sm-4"></p>');
+      var $wrapper = $('#outputDiv').children().last();
+      $wrapper.append('<div class="item-found bordered"></div>');
+      var $el = $wrapper.children().last();
+      $el.append('<p>Item: ' + array[i].name + '</p>');
+      $el.append('<p>Quantity: ' + array[i].quantity + '</p>');
+      $el.append('<p>Size: ' + array[i].size + '</p>');
+      $el.append('<p>Color: ' + array[i].color + '</p>');
     } // end for
   } // end else
 };// end displayMatches

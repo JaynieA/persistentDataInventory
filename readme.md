@@ -26,4 +26,10 @@ Think about this in stages: Using the existing project as a POC you'll want to c
 
 ##Stretch Goals
 
+* [x] Add styling
+
 * [ ] Host app on Heroku
+
+* [ ] Add Server Side Validation
+
+* [ ] Add Quantity to database and client side logic

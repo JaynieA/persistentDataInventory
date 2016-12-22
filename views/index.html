@@ -11,48 +11,65 @@
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <script src="scripts/8bitInventory.js" charset="utf-8"></script>
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="stylesheets/css/master.css">
   </head>
   <body>
     <div class="container text-center">
       <h1>8-Bit Inventory Launchpad</h1>
 
-      <h2>Add Item to Inventory</h2>
-      <form id="addItemForm" class="form-inline">
-        <div class="form-group">
-          <label for="nameIn">Name:</label>
-          <input id="nameIn" type="text" class="form-control" placeholder="Name" required>
-        </div>
-        <div class="form-group">
-          <label for="sizeIn">Size:</label>
-          <select id="sizeIn" class="form-control" required>
-            <option value="" selected disabled>Select a Size:</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label for="colorIn">Color:</label>
-          <select id="colorIn" class="form-control" required>
-            <option value="" selected disabled>Choose a color:</option>
-          </select>
-        </div>
-        <button type="submit" class="btn btn-primary">Add Item</button>
-      </form>
+      <section class="form-section bordered bordered-light">
+        <h2>Add Item to Inventory</h2>
+        <hr>
+        <form id="addItemForm" class="form-inline">
+          <div class="form-group">
+            <label for="nameIn">Name:</label>
+            <input id="nameIn" type="text" class="form-control" placeholder="Name" required>
+          </div>
+          <div class="form-group">
+            <label for="sizeIn">Size:</label>
+            <select id="sizeIn" class="form-control" required>
+              <option value="" selected disabled>Select a Size:</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="colorIn">Color:</label>
+            <select id="colorIn" class="form-control" required>
+              <option value="" selected disabled>Choose a color:</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="quantityIn">Quantity:</label>
+            <input id="quantityIn" type="number" class="form-control" required>
+          </div>
+          <button type="submit" class="btn btn-primary">Add Item</button>
+        </form>
+      </section>
 
-      <h2>Find Item</h2>
-      <form id="findItemForm" class="form-inline">
-        <div class="form-group">
-          <label for="findSizeIn">Size:</label>
-          <select id="findSizeIn" class="form-control" required>
-            <option value="" selected disabled>Select a Size:</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label for="findColorIn">Color:</label>
-          <select id="findColorIn" class="form-control" required>
-            <option value="" selected disabled>Choose a color:</option>
-          </select>
-        </div>
-        <button type="submit" class="btn btn-primary">Find Item</button>
-      </form>
+      <section class="form-section bordered bordered-light">
+        <h2>Find Item</h2>
+        <hr>
+        <form id="findItemForm" class="form-inline">
+          <div class="form-group">
+            <label for="findSizeIn">Size:</label>
+            <select id="findSizeIn" class="form-control" required>
+              <option value="" selected disabled>Select a Size:</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="findColorIn">Color:</label>
+            <select id="findColorIn" class="form-control" required>
+              <option value="" selected disabled>Choose a color:</option>
+            </select>
+          </div>
+          <button type="submit" class="btn btn-primary">Find Item</button>
+        </form>
+      </section>
+
+
+
 
       <div id="outputDiv"></div>
 

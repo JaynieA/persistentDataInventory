@@ -1,0 +1,31 @@
+html, body {
+  font-family: "Roboto", sans-serif; }
+
+h2 {
+  font-size: 24px; }
+
+hr {
+  width: 30%;
+  margin-top: 0; }
+
+form {
+  padding: 10px 0 20px; }
+  form label {
+    font-weight: bold;
+    font-size: 16px;
+    padding: 0 5px 0 10px; }
+
+.form-section {
+  margin: 20px auto; }
+
+.bordered {
+  border: 2px solid #515150;
+  border-radius: 4px; }
+
+.bordered-light {
+  border-color: #eee; }
+
+.item-found {
+  padding: 10px; }
+
+/*# sourceMappingURL=master.css.map */
